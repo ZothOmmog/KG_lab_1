@@ -39,10 +39,18 @@ namespace KG_lab_1
         }
 
         //Получение рисунка
-        private Graphics GetGraphics(ref Bitmap img)
+        private Graphics GetGraphics(out Bitmap img)
         {
-            if (pictureBox1.Image == null) return Graphics.FromImage(new Bitmap(pictureBox1.Width, pictureBox1.Height));
-            else return Graphics.FromImage(pictureBox1.Image);
+            if (pictureBox1.Image == null)
+            {
+                img = new Bitmap(pictureBox1.Width, pictureBox1.Height);
+                return Graphics.FromImage(img);
+            }
+            else
+            {
+                img = (Bitmap)pictureBox1.Image;
+                return Graphics.FromImage(pictureBox1.Image);
+            }
         }
 
         //Вычисление координат для точек новой линии
@@ -60,16 +68,10 @@ namespace KG_lab_1
         //Создать линию
         private void CreateLine()
         {
-            
             Bitmap img;
-            Graphics g = GetGraphics(ref img);
+            Graphics g = GetGraphics(out img);
 
-
-            //AddLine(ref g);
-            Pen blackPen = new Pen(Color.Black, 3);
-            Point point1 = new Point(250, 350);
-            Point point2 = new Point(400, 300);
-            g.DrawLine(blackPen, point1, point2);
+            AddLine(ref g);
 
             pictureBox1.Image = img;
         }
