@@ -32,8 +32,9 @@
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.buttonDeleteLine = new System.Windows.Forms.Button();
             this.buttonCreateLine = new System.Windows.Forms.Button();
-            this.panelGraphics = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -75,25 +76,26 @@
             this.buttonCreateLine.UseVisualStyleBackColor = true;
             this.buttonCreateLine.Click += new System.EventHandler(this.ButtonCreateLine_Click);
             // 
-            // panelGraphics
+            // pictureBox1
             // 
-            this.panelGraphics.BackColor = System.Drawing.SystemColors.Window;
-            this.panelGraphics.Location = new System.Drawing.Point(224, 12);
-            this.panelGraphics.Name = "panelGraphics";
-            this.panelGraphics.Size = new System.Drawing.Size(568, 426);
-            this.panelGraphics.TabIndex = 1;
-            this.panelGraphics.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelGraphics_Paint);
+            this.pictureBox1.BackColor = System.Drawing.Color.White;
+            this.pictureBox1.Location = new System.Drawing.Point(225, 13);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(563, 425);
+            this.pictureBox1.TabIndex = 1;
+            this.pictureBox1.TabStop = false;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.panelGraphics);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBox1);
             this.Name = "MainForm";
             this.Text = "Graphics Editor";
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -104,7 +106,7 @@
         private System.Windows.Forms.Button buttonCreateLine;
         private System.Windows.Forms.Button buttonDeleteLine;
         private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Panel panelGraphics;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

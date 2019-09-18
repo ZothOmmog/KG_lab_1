@@ -12,40 +12,71 @@ namespace KG_lab_1
 {
     public partial class MainForm : Form
     {
-        private bool createLine = false; //рисовать ли линию при следующей перерисовке
-
+        Point[,] linesArr = new Point[2, 0];
 
         public MainForm()
         {
             InitializeComponent();
         }
 
-        //Создать линию
-        private void CreateLine(Graphics g)
+        //Добавить линию в массив линий
+        private void AddLine(Point p1, Point p2)
+        {
+            Point[,] bufArr = new Point[linesArr.GetLength(0) + 1, linesArr.GetLength(1)];
+
+            for (int i = 0; i < bufArr.GetLength(0); i++)
+            {
+                for(int j = 0; j < bufArr.GetLength(1); i++)
+                {
+                    bufArr[i, j] = linesArr[i, j];
+                }
+            }
+
+            bufArr[bufArr.GetLength(0) - 1, 0] = p1;
+            bufArr[bufArr.GetLength(0) - 1, 1] = p2;
+
+            linesArr = bufArr;
+        }
+
+        //Получение рисунка
+        private Graphics GetGraphics(ref Bitmap img)
+        {
+            if (pictureBox1.Image == null) return Graphics.FromImage(new Bitmap(pictureBox1.Width, pictureBox1.Height));
+            else return Graphics.FromImage(pictureBox1.Image);
+        }
+
+        //Вычисление координат для точек новой линии
+
+
+        //Добавление линии на графический объект
+        private void AddLine(ref Graphics g)
         {
             Pen blackPen = new Pen(Color.Black, 3);
+            Point point1 = new Point(250, 350);
+            Point point2 = new Point(400, 300);
+            g.DrawLine(blackPen, point1, point2);
+        }
 
-            Point point1 = new Point(100, 100);
-            Point point2 = new Point(300, 100);
+        //Создать линию
+        private void CreateLine()
+        {
+            
+            Bitmap img;
+            Graphics g = GetGraphics(ref img);
 
+
+            //AddLine(ref g);
+            Pen blackPen = new Pen(Color.Black, 3);
+            Point point1 = new Point(250, 350);
+            Point point2 = new Point(400, 300);
             g.DrawLine(blackPen, point1, point2);
 
-            createLine = false;
+            pictureBox1.Image = img;
         }
 
         private void ButtonCreateLine_Click(object sender, EventArgs e)
         {
-            createLine = true;
-            panelGraphics.Visible = false;
-            panelGraphics.Visible = true;
+            CreateLine();
         }
-
-        private void PanelGraphics_Paint(object sender, PaintEventArgs e)
-        {
-            if(createLine) CreateLine(e.Graphics);
-            
-        }
-
-        
     }
 }
