@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.buttonDeleteLine = new System.Windows.Forms.Button();
             this.buttonCreateLine = new System.Windows.Forms.Button();
             this.panelGraphics = new System.Windows.Forms.Panel();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +47,14 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Menu";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(7, 80);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 2;
             // 
             // buttonDeleteLine
             // 
@@ -65,21 +73,16 @@
             this.buttonCreateLine.TabIndex = 0;
             this.buttonCreateLine.Text = "Создать линию";
             this.buttonCreateLine.UseVisualStyleBackColor = true;
+            this.buttonCreateLine.Click += new System.EventHandler(this.ButtonCreateLine_Click);
             // 
             // panelGraphics
             // 
+            this.panelGraphics.BackColor = System.Drawing.SystemColors.Window;
             this.panelGraphics.Location = new System.Drawing.Point(224, 12);
             this.panelGraphics.Name = "panelGraphics";
             this.panelGraphics.Size = new System.Drawing.Size(568, 426);
             this.panelGraphics.TabIndex = 1;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(7, 80);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
+            this.panelGraphics.Paint += new System.Windows.Forms.PaintEventHandler(this.PanelGraphics_Paint);
             // 
             // MainForm
             // 
@@ -98,10 +101,10 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Panel panelGraphics;
         private System.Windows.Forms.Button buttonCreateLine;
         private System.Windows.Forms.Button buttonDeleteLine;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Panel panelGraphics;
     }
 }
 
