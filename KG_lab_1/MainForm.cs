@@ -12,8 +12,11 @@ namespace KG_lab_1
 {
     public partial class MainForm : Form
     {
-        Point[,] linesArr; //Массив со всеми линиями
-        Point[,] currentLine; //Выбранная линия
+        Line[] arrLines; //Maccив линий
+        Line[] currentLine; //Выбранные линии
+
+        //Point[,] linesArr; //Массив со всеми линиями
+        //Point[,] currentLine; //Выбранная линия
         Bitmap map; //холст
 
         public MainForm()
@@ -25,28 +28,24 @@ namespace KG_lab_1
         //Инициализация внутренних переменных
         private void Init()
         {
-            linesArr = new Point[0, 2];
-            currentLine = new Point[1, 2];
+            arrLines = new Line[0];
+            currentLine = new Line[0];
             map = new Bitmap(pictureBox1.Width, pictureBox1.Height);
         }
 
         //Добавить линию в массив линий
-        private void AddLineInArr(Point p1, Point p2)
+        private void AddLineInArr(Line l)
         {
-            Point[,] bufArr = new Point[linesArr.GetLength(0) + 1, linesArr.GetLength(1)];
+            Line[] bufArr = new Line[arrLines.Length + 1];
 
-            for (int i = 0; i < linesArr.GetLength(0); i++)
+            for (int i = 0; i < arrLines.Length; i++)
             {
-                for(int j = 0; j < linesArr.GetLength(1); j++)
-                {
-                    bufArr[i, j] = linesArr[i, j];
-                }
+                bufArr[i] = arrLines[i];
             }
 
-            bufArr[bufArr.GetLength(0) - 1, 0] = p1;
-            bufArr[bufArr.GetLength(0) - 1, 1] = p2;
+            bufArr[bufArr.Length - 1] = l;
 
-            linesArr = bufArr;
+            arrLines = bufArr;
         }
 
         //Получение рисунка
@@ -60,30 +59,36 @@ namespace KG_lab_1
             else return Graphics.FromImage(map);
         }
 
-        //Вычисление координат для точек новой линии
-        private Point[] GetPointArr()
+        //Перерисовывает весь массив линий
+        private void ReDwarAll()
         {
-            Point[] line = new Point[2];
-            line[0].X = 250;
-            line[0].Y = 350;
-            line[1].X = 400;
-            line[1].Y = 300;
+            for (int i = 0; i < arrLines.Length; i++)
+                DrawingLine(arrLines[i], Color.Black, Color.Red);
+        }
 
-            return line;
+        //Отрисовка линии
+        private void DrawingLine(Line l, Color penColor, Color pointColor)
+        {
+            Graphics g = GetGraphics();
+
+            g.DrawLine(new Pen(penColor, 3), l.Point1, l.Point2);
+            g.FillEllipse(new SolidBrush(pointColor), new Rectangle(l.Point1.X - 4, l.Point1.Y - 4, 9, 9));
+            g.FillEllipse(new SolidBrush(pointColor), new Rectangle(l.Point2.X - 4, l.Point2.Y - 4, 9, 9));
         }
 
         //Добавление линии на графический объект и добавление линии в массив линий
         private void AddLine()
         {
-            Graphics g = GetGraphics();
+            Random rand = new Random();
 
-            Pen blackPen = new Pen(Color.Black, 3);
-            Point p1 = new Point(250, 350);
-            Point p2 = new Point(400, 300);
+            Point p1 = new Point(200 + rand.Next(50), 300 + rand.Next(50));
+            Point p2 = new Point(350 + rand.Next(50), 250 + rand.Next(50));
 
-            AddLineInArr(p1, p2);
-
-            g.DrawLine(blackPen, p1, p2);
+            Line l = new Line(p1, p2);
+            
+            AddLineInArr(l);
+            ReDwarAll();
+            //DrawBlackLine(l);
         }
 
         //Создать линию
@@ -94,9 +99,40 @@ namespace KG_lab_1
             pictureBox1.Image = map;
         }
 
+        //Добавление текущей линии в массив и отрисовка её фиолетовым цветом
+        private void DrawCurrentLine()
+        {
+            Line[] bufArr = new Line[currentLine.Length + 1];
+            for (int i = 0; i < currentLine.Length; i++)
+                bufArr[i] = currentLine[i];
+
+
+        }
+
+        //Нажатие кнопки создания линии
         private void ButtonCreateLine_Click(object sender, EventArgs e)
         {
             CreateLine();
+        }
+
+        Point p1 = new Point(-1, -1);
+        //Нажатие мышкой на рабочее поле(для выделения линии)
+        private void PictureBox1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (p1.X == -1)
+                p1 = e.Location;
+            else
+            {
+                Graphics g = GetGraphics();
+                DrawingLine(new Line(p1, e.Location), Color.PaleVioletRed, Color.Violet);
+                pictureBox1.Image = map;
+                p1.X = -1;
+            }
+        }
+
+        //
+        private void ButtonDeleteLine_Click(object sender, EventArgs e)
+        {
         }
     }
 }

@@ -51,7 +51,7 @@ namespace KG_lab_1
                 return abc[0];
             }
 
-            set
+            private set
             {
                 abc[0] = value;
             }
@@ -63,7 +63,7 @@ namespace KG_lab_1
                 return abc[1];
             }
 
-            set
+            private set
             {
                 abc[1] = value;
             }
@@ -75,7 +75,7 @@ namespace KG_lab_1
                 return abc[2];
             }
 
-            set
+            private set
             {
                 abc[2] = value;
             }
@@ -88,17 +88,35 @@ namespace KG_lab_1
 
         public void Init(Point p1, Point p2)
         {
+            points = new int[2, 3];
+            abc = new int[3];
+
             createPoint1 = false;
             createPoint2 = false;
             Point1 = p1;
             Point2 = p2;
         }
 
-        public void CalcABC()
+        //Пересчитывает коэффиценты прямой после изменения точек
+        private void CalcABC()
         {
             A = Point1.Y - Point2.Y;
             B = Point2.X - Point1.X;
             C = Point1.X * Point2.Y - Point2.X * Point1.Y;
+        }
+
+        //Возвращает первую точку как вектор с ОК
+        public int[] GetPoint1Vect()
+        {
+            int[] arr = { Point1.X, Point1.Y, 1 };
+            return arr;
+        }
+
+        //Возвращает вторую точку как вектор с ОК
+        public int[] GetPoint2Vect()
+        {
+            int[] arr = { Point2.X, Point2.Y, 1 };
+            return arr;
         }
 
     }
