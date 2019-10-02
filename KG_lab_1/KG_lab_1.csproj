@@ -61,7 +61,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GraphicLines.cs" />
     <Compile Include="Line.cs" />
+    <Compile Include="ArrayLines.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -86,6 +86,11 @@ namespace KG_lab_1
             Init(p1, p2);
         }
 
+        public Line(int x1, int y1, int x2, int y2)
+        {
+            Init(new Point(x1, y1), new Point(x2, y2));
+        }
+
         public void Init(Point p1, Point p2)
         {
             points = new int[2, 3];
